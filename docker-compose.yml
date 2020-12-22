@@ -1,17 +1,17 @@
 version: '3.7'
 services:
-  redis-three:
+  redis-two:
     image: redis:6
-    container_name: redis_slave-three
+    container_name: redis_slave-one
     command: ["redis-server", "--appendonly", "no", "--bind", "0.0.0.0"]
     ports: ["6379:6379"]
     restart: unless-stopped
     volumes:
      - redis-one-data:/data
     network_mode: host
-  sentinel-one:
+  sentinel-two:
     image: redis:6
-    container_name: sentinel_three
+    container_name: sentinel_two
     ports: ["26379:26379"]
     restart: unless-stopped
     volumes:
