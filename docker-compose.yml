@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  redis-three:
+    image: redis:6
+    container_name: redis_slave-three
+    command: ["redis-server", "--appendonly", "no", "--bind", "0.0.0.0"]
+    ports: ["6379:6379"]
+    restart: unless-stopped
+    volumes:
+     - redis-one-data:/data
+    network_mode: host
+  sentinel-one:
+    image: redis:6
+    container_name: sentinel_three
+    ports: ["26379:26379"]
+    restart: unless-stopped
+    volumes:
+      - ./sentinel.conf:/etc/sentinel.conf
+    command: redis-server /etc/sentinel.conf --sentinel
+    network_mode: host
+volumes:
+  redis-one-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/db/redis-one/data
+
