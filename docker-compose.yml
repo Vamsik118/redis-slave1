@@ -3,7 +3,7 @@ services:
   redis-two:
     image: redis:6
     container_name: redis_slave-one
-    command: ["redis-server", "--appendonly", "no", "--bind", "0.0.0.0"]
+    command: ["redis-server", "--appendonly", "yes", "--bind", "0.0.0.0"]
     ports: ["6379:6379"]
     restart: unless-stopped
     volumes:
